@@ -1,16 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BBI_reexam_2
+class Counter
 {
-    internal class Task3
-    {
-        public Task3()
-        {
+    public string Input { get; }
+    public double Output { get; private set; }
 
-        }
+    public Counter(string input)
+    {
+        Input = input;
+        CalculateAverage();
+    }
+
+    private void CalculateAverage()
+    {
+        var digits = Input.Where(char.IsDigit).Select(c => (double)(c - '0')).ToArray();
+        Output = digits.Length > 0 ? digits.Average() : 0;
+    }
+
+    public override string ToString() => $"Average of digits: {Output:F2}";
+}
+
+class Program
+{
+    static void Main()
+    {
+        Counter counter = new Counter("Nº1,2 and 30, -4");
+        Console.WriteLine(counter.ToString());
     }
 }
